@@ -35,20 +35,6 @@ backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) satu
 border:1px solid rgba(236,231,216,0.18);
 box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 8px 24px rgba(0,0,0,0.45)}
 #zoom button:hover{border-color:rgba(236,231,216,0.35)}
-.tog{all:unset;display:inline-block;cursor:pointer;color:#6f6a5e;font-size:9px;letter-spacing:.14em;
-padding:8px 16px;border-radius:999px;
-background:rgba(31,48,39,0.35);
-backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
-border:1px solid rgba(236,231,216,0.18);
-box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),inset 0 -8px 14px -10px rgba(255,255,255,0.15),0 8px 24px rgba(0,0,0,0.45);
-transition:border-color .2s,color .2s}
-.tog:hover{border-color:rgba(236,231,216,0.35)}
-.tog{margin-right:6px}
-.tog i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;border:1px solid var(--tc,#fb3748);vertical-align:-1px}
-.tog.on{color:#ece7d8}
-.tog.on i{background:var(--tc,#fb3748);box-shadow:0 0 6px var(--tc,#fb3748)}
-.tog::after{content:' · OFF';color:#4a463e}
-.tog.on::after{content:' · ON';color:var(--tc,#fb3748)}
 #logo{position:fixed;bottom:50px;left:calc((100% - 240px)/2);transform:translateX(-50%);width:217px;max-width:33vw;z-index:6;pointer-events:none;opacity:0.92}
 #tag{position:fixed;z-index:8;display:none;pointer-events:none;transform:translate(-50%,-100%);
 padding:7px 16px;border-radius:999px;font-size:9px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);white-space:nowrap;
@@ -64,9 +50,8 @@ box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),inset 0 -8px 14px -10px rgba(255
 #anchors{left:10px;right:10px;top:10px;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 0 4px}
 #anchors::-webkit-scrollbar{display:none}
 #anchors button{padding:7px 12px;font-size:8px;white-space:nowrap;flex:0 0 auto}
-#panel{left:10px;right:58px;top:auto;bottom:58px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-#panel .lg{width:100%;margin-top:2px;font-size:7px;letter-spacing:.12em}
-.tog{padding:7px 11px;font-size:8px;margin-right:0}
+#panel{left:10px;right:58px;top:auto;bottom:58px}
+#panel .lg{font-size:7px;letter-spacing:.12em}
 canvas{touch-action:none}
 }
 </style>
@@ -78,8 +63,6 @@ canvas{touch-action:none}
 <div id="anchors"></div>
 <div id="zoom"><button id="zi">+</button><button id="zo">−</button></div>
 <div id="panel">
-<button class="tog on" id="to" data-col="#4c8a63"><i></i>OPEN SPACE &amp; PARKS</button>
-<button class="tog on" id="tw" data-col="#2F80ED"><i></i>WATER</button>
 <div class="lg">THE WASATCH · HOVER ANY AREA</div>
 </div>
 <script>
@@ -261,8 +244,6 @@ stage.addEventListener('pointermove',e=>{
   }
 });
 stage.addEventListener('pointerleave',()=>{hover=-1;hoverOS=-1;hoverC=-1;draw();sync();});
-document.querySelectorAll('.tog').forEach(b=>b.style.setProperty('--tc',b.dataset.col));
-const to=document.getElementById('to'),tw=document.getElementById('tw');
 document.getElementById('zi').onclick=()=>{ZOOM=Math.min(ZOOM*1.2,5);if(layout()){clampPan();buildBase();draw();}};
 document.getElementById('zo').onclick=()=>{ZOOM=Math.max(ZOOM/1.2,0.4);if(layout()){clampPan();buildBase();draw();}};
 function clampPan(){
@@ -282,8 +263,6 @@ stage.addEventListener('wheel',e=>{
   panX-=e.deltaX;panY-=e.deltaY;clampPan();draw();
   clearTimeout(rebuildT);rebuildT=setTimeout(()=>{buildBase();draw();},160);
 },{passive:false});
-to.onclick=()=>{showOS=!showOS;to.classList.toggle('on',showOS);buildBase();draw();};
-tw.onclick=()=>{showWater=!showWater;tw.classList.toggle('on',showWater);buildBase();draw();};
 const anc=document.getElementById('anchors');
 {const b=document.createElement('button');b.textContent='Birdseye';b.dataset.g='all';b.onclick=()=>jumpTo('all');anc.appendChild(b);}
 GROUPS.forEach(([g,label])=>{
