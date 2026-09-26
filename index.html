@@ -11,7 +11,7 @@
 :root[data-theme="dark"]{--bg:#0b0b0a}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden}
-#wrap{display:flex;height:100vh}
+#wrap{display:flex;height:100%}
 #stage{position:relative;flex:1;height:100%;min-width:0}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
 #list{width:240px;height:100%;overflow-y:auto;background:#0d0d0c;border-left:1px solid #1f1e1a;padding:16px 0;scrollbar-width:thin;scrollbar-color:#2a2823 transparent}
@@ -56,7 +56,19 @@ background:rgba(31,48,39,0.45);
 backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
 border:1px solid rgba(236,231,216,0.22);
 box-shadow:inset 0 1px 0 rgba(255,255,255,0.25),inset 0 -8px 14px -10px rgba(255,255,255,0.18),0 8px 24px rgba(0,0,0,0.45)}
-@media (max-width:640px){#list{display:none}}
+@media (max-width:640px){
+#list{display:none}
+#wrap{height:100%}
+#logo{left:50%;bottom:20px;width:150px;max-width:46vw}
+#zoom{right:12px;bottom:12px}
+#anchors{left:10px;right:10px;top:10px;gap:6px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 0 4px}
+#anchors::-webkit-scrollbar{display:none}
+#anchors button{padding:7px 12px;font-size:8px;white-space:nowrap;flex:0 0 auto}
+#panel{left:10px;right:58px;top:auto;bottom:58px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#panel .lg{width:100%;margin-top:2px;font-size:7px;letter-spacing:.12em}
+.tog{padding:7px 11px;font-size:8px;margin-right:0}
+canvas{touch-action:none}
+}
 </style>
 </head>
 <body>
